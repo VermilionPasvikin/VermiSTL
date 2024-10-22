@@ -83,7 +83,7 @@ namespace VermiSTL
 			--length;
 		}
 
-		TYPE getElement(size_t index)
+		TYPE& getElement(size_t index)
 		{
 			node<TYPE>* current_node = entrance;
 			for (size_t i = 0; i < index; ++i)
@@ -187,7 +187,7 @@ namespace VermiSTL
 			return node_ptr_array;
 		}
 
-		TYPE operator[](size_t index)
+		TYPE& operator[](size_t index)
 		{
 			return getElement(index);
 		}

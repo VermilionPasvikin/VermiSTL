@@ -23,5 +23,16 @@ int main()
 	{
 		std::cout << b[i];
 	}
+
+	std::cout << std::endl;
+
+	list_int[0] = 8;
+
+	b = list_int.getAllElements();
+	for (size_t i = 0; i < list_int.getLength(); i++)
+	{
+		std::cout << b[i];
+	}
+
 	std::cout << std::endl;
 }
