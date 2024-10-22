@@ -5,7 +5,7 @@ namespace VermiSTL
 {
 
     template<typename TYPE>
-    class Stack
+    class stack
     {
         private:
             TYPE* stk; // 表示栈的数组
@@ -14,19 +14,19 @@ namespace VermiSTL
             size_t size; // 栈装入元素的个数
             size_t capacity; //栈的容量
         public:
-            Stack(size_t Capacity):size(0), capacity(Capacity)
+            stack(size_t Capacity):size(0), capacity(Capacity)
             {
                 stk = new TYPE[capacity];
                 top = stk;
             }
 
-            Stack():size(0),capacity(0)
+            stack():size(0),capacity(0)
             {
                 stk = new TYPE[capacity];
                 top = stk;
             }
 
-            Stack(const Stack& Right):size(Right.size), capacity(Right.capacity)
+            stack(const stack& Right):size(Right.size), capacity(Right.capacity)
             {
                 stk = new TYPE[capacity];
                 top = stk;
@@ -37,7 +37,7 @@ namespace VermiSTL
                 }
             }
 
-            ~Stack()
+            ~stack()
             {
                 delete[] stk;
             }
@@ -50,7 +50,7 @@ namespace VermiSTL
     };
 
     template<typename TYPE>
-    void Stack<TYPE>::push(TYPE ELement) {
+    void stack<TYPE>::push(TYPE ELement) {
         if (size < capacity) {
             *top = ELement;
             ++top;
@@ -59,7 +59,7 @@ namespace VermiSTL
     }
 
     template<typename TYPE>
-    TYPE Stack<TYPE>::pop() {
+    TYPE stack<TYPE>::pop() {
         if (size > 0) {
             --top;
             --size;
@@ -68,13 +68,13 @@ namespace VermiSTL
     }
 
     template<typename TYPE>
-    inline size_t Stack<TYPE>::getSize()
+    inline size_t stack<TYPE>::getSize()
     {
         return size;
     }
 
     template<typename TYPE>
-    inline size_t Stack<TYPE>::getCapicity()
+    inline size_t stack<TYPE>::getCapicity()
     {
         return capacity;
     }

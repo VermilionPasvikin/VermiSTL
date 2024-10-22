@@ -1,31 +1,27 @@
 #include <iostream>
 #include "SeqList_template.h"
 #include "Stack_template.h"
+#include "LinkList_template.h"
 
 int main()
 {
+	using namespace VermiSTL;
 	int a[5] = { 0,1,3,3,1 };
-	VermiSTL::Stack<int> stack_int(5);
-	
+	linkList<int> list_int(a, 5);
+
+	int *b = list_int.getAllElements();
 	for (size_t i = 0; i < 5; i++)
 	{
-		stack_int.push(a[i]);
+		std::cout << b[i];
 	}
+	std::cout << std::endl;
 
-	for (size_t i = 0; i < 5; i++)
+	list_int.remove(1);
+
+	b = list_int.getAllElements();
+	for (size_t i = 0; i < list_int.getLength(); i++)
 	{
-		stack_int.push(a[i]);
+		std::cout << b[i];
 	}
-
-	std::cout << stack_int.getSize()<<std::endl;
-	stack_int.pop();
-	std::cout << stack_int.getSize()<<std::endl;
-
-	std::cout << stack_int.getCapicity()<<std::endl;
-
-	size_t all = stack_int.getSize();
-	for (size_t i = 0; i <all; i++)
-	{
-		std::cout<< stack_int.pop();
-	}
+	std::cout << std::endl;
 }

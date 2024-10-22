@@ -1,3 +1,1 @@
-namespace VermiSTL
-{
-}
+#include "LinkList_template.h"

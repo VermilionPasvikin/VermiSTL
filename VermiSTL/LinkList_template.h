@@ -117,6 +117,31 @@ namespace VermiSTL
 			++length;
 		}
 
+		void remove(size_t index)
+		{
+			if (index == 0)
+			{
+				node<TYPE>* current_node = entrance;
+				node<TYPE>* next_node = current_node->next_ptr;
+				delete current_node;
+				entrance = next_node;
+			}
+			else
+			{
+				node<TYPE>* current_node = entrance;
+				node<TYPE>* next_node = nullptr;
+				for (size_t i = 0; i < index - 1; ++i)
+				{
+					current_node = current_node->next_ptr;
+				}
+				next_node = current_node->next_ptr->next_ptr;
+
+				delete current_node->next_ptr;
+				current_node->next_ptr = next_node;
+			}
+			length--;
+		}
+
 		linkList& operator=(const linkList& OtherLinklist)
 		{
 			this->length = OtherLinklist.length;

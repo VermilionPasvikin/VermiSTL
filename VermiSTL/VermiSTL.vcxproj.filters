@@ -32,5 +32,8 @@
     <ClCompile Include="Stack_template.h">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="Stack_template.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
