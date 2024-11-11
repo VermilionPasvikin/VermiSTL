@@ -2,37 +2,22 @@
 #include "SeqList_template.h"
 #include "Stack_template.h"
 #include "LinkList_template.h"
+#include "Queue_template.h"
+
+#define LOG(X) std::cout << X << std::endl
 
 int main()
 {
 	using namespace VermiSTL;
-	int a[5] = { 0,1,3,3,1 };
-	linkList<int> list_int(a, 5);
+	static_queue<int, 6> qu1;
+	qu1.Enqueue(1);
+	qu1.Enqueue(2);
 
-	int *b = list_int.getAllElements();
-	for (size_t i = 0; i < 5; i++)
-	{
-		std::cout << b[i];
-	}
-	std::cout << std::endl;
-
-	list_int.remove(1);
-
-	b = list_int.getAllElements();
-	for (size_t i = 0; i < list_int.getLength(); i++)
-	{
-		std::cout << b[i];
-	}
-
-	std::cout << std::endl;
-
-	list_int[0] = 8;
-
-	b = list_int.getAllElements();
-	for (size_t i = 0; i < list_int.getLength(); i++)
-	{
-		std::cout << b[i];
-	}
-
-	std::cout << std::endl;
+	static_queue<int, 6>* qu2 = new static_queue<int, 6>(qu1);
+	LOG(qu2->Capacity());
+	LOG(qu2->isEmpty());
+	LOG(qu2->isFull());
+	LOG(qu2->Length());
+	LOG(qu2->Dequeue());
+	LOG(qu2->Dequeue());
 }

@@ -18,6 +18,9 @@
     <ClInclude Include="LinkList_template.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Queue_template.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LinkList_template.cpp">

@@ -4,27 +4,27 @@
 namespace VermiSTL
 {
 	template <typename TYPE>
-	class vector_p
+	class vector
 	{
 	public:
-		vector_p() :size(0), capacity(1)
+		vector() :size(0), capacity(1)
 		{
 			alloc(1);
 		}
 
-		vector_p(size_t Capacity)
+		vector(size_t Capacity)
 		{
 			alloc(Capacity);
 		}
 
-		vector_p(TYPE* Array, size_t Size, size_t Capacity)
+		vector(TYPE* Array, size_t Size, size_t Capacity)
 		{
 			alloc(Capacity);
 			if (Size <= Capacity)
 			{
 				for (size_t i = 0; i < Size; i++)
 				{
-					vector[i] = Array[i];
+					vector_p[i] = Array[i];
 				}
 				size = Size;
 			}
@@ -32,20 +32,30 @@ namespace VermiSTL
 			{
 				for (size_t i = 0; i < Capacity; i++)
 				{
-					vector[i] = Array[i];
+					vector_p[i] = Array[i];
 				}
 				size = Capacity;
 			}
 		}
 
-		vector_p(const vector_p<TYPE>& Vector)
+		vector(const vector<TYPE>& Vector)
 		{
 			alloc(Vector.capacity);
 			for (size_t i = 0; i < Vector.size; i++)
 			{
-				vector[i] = Vector.vector[i];
+				vector_p[i] = Vector.vector_p[i];
 			}
 			size = Vector.size;
+		}
+
+		void push_back(TYPE Element)
+		{
+			size++;
+			if (size > capacity)
+			{
+				realloc(capacity + 10);
+			}
+			vector_p[size - 1] = Element;
 		}
 
 		void push_back(TYPE& Element)
@@ -55,7 +65,7 @@ namespace VermiSTL
 			{
 				realloc(capacity + 10);
 			}
-			vector[size - 1] = Element;
+			vector_p[size - 1] = Element;
 		}
 
 		void pop_back()
@@ -80,18 +90,19 @@ namespace VermiSTL
 
 			for (size_t i = Index; i < size - 1; i++)
 			{
-				vector[i + 1] = vector[i];
+				vector_p[i + 1] = vector_p[i];
 			}
 
-			vector[Index] = Element;
+			vector_p[Index] = Element;
 		}
+
 		void erase(size_t Index)
 		{
 			if (size > 0)
 			{
 				for (size_t i = Index; i < size - 1; i++)
 				{
-					vector[i] = vector[i + 1];
+					vector_p[i] = vector_p[i + 1];
 				}
 				size--;
 			}
@@ -106,7 +117,7 @@ namespace VermiSTL
 			BeginIndex--;
 			for (size_t i = 1; i < EndIndex-BeginIndex ; i++)
 			{
-				vector[BeginIndex + i] = vector[EndIndex + i];
+				vector_p[BeginIndex + i] = vector_p[EndIndex + i];
 			}
 			size -= EndIndex - BeginIndex;
 		}
@@ -124,7 +135,7 @@ namespace VermiSTL
 			size = 0;
 		}
 
-		vector_p& operator=(const vector_p<TYPE>& Vector)
+		vector& operator=(const vector<TYPE>& Vector)
 		{
 			if (capacity != Vector.capacity)
 			{
@@ -133,19 +144,19 @@ namespace VermiSTL
 			size = Vector.size;
 			for (size_t i = 0; i < size; i++)
 			{
-				vector[i] = Vector.vector[i];
+				vector_p[i] = Vector.vector_p[i];
 			}
 			return *this;
 		}
 
 		TYPE& operator[](size_t index)
 		{
-			return vector[index];
+			return vector_p[index];
 		}
 
-		~vector_p()
+		~vector()
 		{
-			delete[] vector;
+			delete[] vector_p;
 		}
 
 		size_t getSize()
@@ -159,27 +170,27 @@ namespace VermiSTL
 		}
 
 	private:
-		TYPE* vector;
+		TYPE* vector_p;
 		size_t size;
 		size_t capacity;
 
 		void alloc(size_t Capacity)
 		{
 			capacity = Capacity;
-			vector = new TYPE[capacity];
+			vector_p = new TYPE[capacity];
 		}
 
 		void realloc(size_t Capacity)
 		{
-			TYPE* temp_store = this->vector;
+			TYPE* temp_store = this->vector_p;
 			this->capacity = Capacity;
-			this->vector = new TYPE[capacity];
+			this->vector_p = new TYPE[capacity];
 
 			if (size > capacity)
 			{
 				for (size_t i = 0; i < capacity; i++)
 				{
-					vector[i] = temp_store[i];
+					vector_p[i] = temp_store[i];
 				}
 				size = capacity;
 			}
@@ -187,7 +198,7 @@ namespace VermiSTL
 			{
 				for (size_t i = 0; i < size; i++)
 				{
-					vector[i] = temp_store[i];
+					vector_p[i] = temp_store[i];
 				}
 			}
 			delete[] temp_store;
@@ -195,7 +206,7 @@ namespace VermiSTL
 	};
 
 	template<typename TYPE>
-	void printVector(VermiSTL::vector_p<TYPE>& Vec) //嵌套使用数据类型时不要用这个！
+	void printVector(VermiSTL::vector<TYPE>& Vec) //嵌套使用数据类型时不要用这个！
 	{
 		size_t count = Vec.getSize();
 		for (size_t i = 0; i < count; i++)
@@ -206,11 +217,11 @@ namespace VermiSTL
 	}
 
 	template<typename TYPE>
-	void removeGivenValue(vector_p<TYPE>& Vec,TYPE Value)
+	void removeGivenValue(vector<TYPE>& Vec, TYPE Value)
 	{
 		for (size_t i = 0; i < Vec.getSize(); i++)
 		{
-			(Vec[i] == Value) ? Vec.erase(i),0 : 0;
+			(Vec[i] == Value) ? Vec.erase(i), 0 : 0;
 		}
 	}
 }
